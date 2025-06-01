@@ -1,0 +1,15 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - credit-service.yaml
+  - credit-service-deployment.yaml
+  - expenses-service.yaml
+  - expenses-service-deployment.yaml
+  - ged-service.yaml
+  - ged-service-deployment.yaml
+  - parametrage-service.yaml
+  - parametrage-service-deployment.yaml
+  - reporting-service.yaml
+  - reporting-service-deployment.yaml
+  - gateway-service.yaml
+  - gateway-service-deployment.yaml
