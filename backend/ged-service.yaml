@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: ged-service
+  namespace: acm
+spec:
+  selector:
+    app: ged-service
+  ports:
+    - protocol: TCP
+      port: 8095
+  type: ClusterIP

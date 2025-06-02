@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: expenses-service
+  namespace: acm
+  labels:
+    app: expenses
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: expenses
+  template:
+    metadata:
+      labels:
+        app: expenses
+    spec:
+      containers:
+      - name: expenses
+        image: saidaghribi/my-app-acm:expenses-service
+        ports:
+        - containerPort: 8096
+        env:
+        - name: SPRING_PROFILES_ACTIVE
+          value: "dev"
+        - name: SPRING_CLOUD_CONSUL_HOST
+          value: "consul-server.acm.svc.cluster.local"
+        - name: SPRING_CLOUD_CONSUL_PORT
+          value: "8500"
+        resources:
+          limits:
+            cpu: "1000m"
+            memory: "1Gi"
+          requests:
+            cpu: "500m"
+            memory: "512Mi"
+      imagePullSecrets:
+        - name: regcred-backend
+

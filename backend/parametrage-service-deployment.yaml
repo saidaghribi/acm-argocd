@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: parametrage-service
+  namespace: acm
+  labels:
+    app: parametrage
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: parametrage
+  template:
+    metadata:
+      labels:
+        app: parametrage
+    spec:
+      containers:
+      - name: parametrage
+        image: saidaghribi/my-app-acm:parametrage-service
+        ports:
+        - containerPort: 8091
+        env:
+        - name: SPRING_PROFILES_ACTIVE
+          value: "prod"
+        - name: SPRING_CLOUD_CONSUL_HOST
+          value: "consul-server.acm.svc.cluster.local"
+        - name: SPRING_CLOUD_CONSUL_PORT
+          value: "8500"
+        resources:
+          limits:
+            cpu: "1000m"
+            memory: "1Gi"
+          requests:
+            cpu: "500m"
+            memory: "512Mi"
+      imagePullSecrets:
+        - name: regcred-backend
